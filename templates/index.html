@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo }}</title>
+</head>
+<body>
+    
+    <div >
+       <form action="/" method="POST">  
+    <select name="moneda" required>
+        <option value="" disabled selected>-- Seleccionar --</option>
+        {% for coin in coins %}
+            <option value="{{ coin['symbol'] }}">{{ coin.symbol }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Buscar</button>
+</form>
+
+    </div>
+
+    <div> {% if cryp %}
+       <h3>
+    <li>Name: {{ cryp.name }}</li>
+    <li>Symbol: {{ cryp.symbol }}</li>
+    <li>Currency: {{ cryp.currency }}</li>
+    <li>Price: {{ cryp.regularMarketPrice | round(2) }}</li>
+    <li>Price Change Today: {{ cryp.regularMarketChange | round(2) }} ({{ cryp.regularMarketChangePercent | round(2) }} %)</li>
+    <li>Day Low: {{ cryp.regularMarketDayLow | round(2) }}</li>
+    <li>Day High: {{ cryp.regularMarketDayHigh | round(2) }}</li>
+    <br>
+    <li>Market Cap: {{ cryp.marketCap }}</li>
+    <li>Volume (24h): {{ cryp.volume24Hr }}</li>
+    <li>Circulating Supply: {{ cryp.circulatingSupply }}</li>
+    <li>52 Week Range: {{ cryp.fiftyTwoWeekRange }}</li>
+    <li>All Time High: {{ cryp.allTimeHigh }}</li>
+    <li>All Time Low: {{ cryp.allTimeLow }}</li>
+    <li>Start Date: {{ cryp.startDate }}</li>
+    <li>Exchange: {{ cryp.fullExchangeName }}</li>
+    <li>Region: {{ cryp.region }}</li>
+    <li>Description: {{ cryp.description }}</li>
+</h3>
+
+        {%endif%}
+    </div>
+
+
+
+    {% if cryp %}
+    <h2>Histórico de precios</h2>
+    <img src="{{ url_for('static', filename='grafico.png') }}" alt="Gráfico de precios">
+ {% endif %}
+
+
+
+
+</body>
+</html>
+
+</html>
